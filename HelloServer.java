@@ -14,6 +14,10 @@ public class HelloServer {
     public static void main(String[] args) throws Exception {
         String addr = "0.0.0.0";
         Integer port = 8000;
+        String portEnv = System.getenv("HELLO_SERVER_PORT");
+        if (portEnv != null) {
+                port = Integer.parseInt(portEnv);
+        }
         HttpServer server = HttpServer.create(new InetSocketAddress(InetAddress.getByName(addr), port), 0);
         server.createContext("/", new MyHandler());
         server.setExecutor(null); // creates a default executor
